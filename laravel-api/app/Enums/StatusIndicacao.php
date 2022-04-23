@@ -12,6 +12,6 @@ use BenSampo\Enum\Enum;
 final class StatusIndicacao extends Enum
 {
     const Iniciada = 1;
-    const EmProcesso = 2;
+    const Em_processo = 2;
     const Finalizada = 3;
 }

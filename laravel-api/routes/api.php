@@ -20,6 +20,7 @@ use App\Http\Controllers\EnumController;
 //     return $request->user();
 // });
 
+
 Route::get('indicados', [IndicadoController::class, 'index']);
 Route::get('indicado/{indicado}', [IndicadoController::class, 'show']);
 Route::post('indicado', [IndicadoController::class, 'store']);
@@ -28,3 +29,9 @@ Route::delete('indicado/{indicado}', [IndicadoController::class,'destroy']);
 Route::patch('indicado/{indicado}', [IndicadoController::class,'evoluir'])->name('evolucao');
 
 Route::get('enum/{classe}', [EnumController::class, 'show']);
+
+Route::fallback(function(){
+
+    return response()->json(['message' => 'Not Found.'], 404);
+
+})->name('api.fallback.404');

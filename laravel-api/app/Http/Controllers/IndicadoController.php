@@ -16,7 +16,7 @@ class IndicadoController extends Controller
      */
     public function index()
     {
-        $indicados = Indicado::all();
+        $indicados = Indicado::paginate(10);
         return IndicadoResource::collection($indicados);
     }
 
@@ -32,7 +32,9 @@ class IndicadoController extends Controller
 
         $indicado = Indicado::create($request->all());
 
-        return response()->json($indicado, 201);
+        $indicado->status_indicacao = 1;
+
+        return response()->json(new IndicadoResource( $indicado ), 201);
     }
 
     /**
@@ -55,11 +57,20 @@ class IndicadoController extends Controller
      */
     public function update(UpdateIndicadoRequest $request, Indicado $indicado)
     {
-        //$request->validated();
+        $request->validated();
 
         $indicado->update($request->all());
 
-        return response()->json($indicado, 200);
+        return new IndicadoResource( $indicado );
+    }
+
+    public function evoluir(UpdateIndicadoRequest $request, Indicado $indicado)
+    {
+        $request->validated();
+
+        $indicado->update($request->all());
+
+        return response()->json(null, 204);
     }
 
     /**
