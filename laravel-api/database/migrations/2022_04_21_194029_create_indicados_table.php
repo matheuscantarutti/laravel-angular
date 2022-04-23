@@ -17,11 +17,13 @@ return new class extends Migration
         Schema::create('indicados', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->text('nome');
+            $table->string('nome');
             $table->string('cpf', 11);
-            $table->text('telefone');
-            $table->text('email');
+            $table->string('telefone');
+            $table->string('email');
             $table->tinyInteger('status_indicacao')->unsigned()->default(StatusIndicacao::Iniciada);
+
+            $table->unique('cpf');
         });
     }
 
