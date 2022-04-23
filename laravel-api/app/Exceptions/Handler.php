@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -43,16 +44,11 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->renderable(function (ModelNotFoundException $e, $request) {
-            if($request->expectsJson()) {
-
-                // return json response of your chosen
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            if ($request->is('api/*')) {
                 return response()->json([
-                    'status' => false,
-                    'code' => 404,
-                    'message' => 'Resource not found',
-                    'data' => null,
-                ]);
+                    'message' => 'Recurso não encontrado.'
+                ], 404);
             }
         });
     }
