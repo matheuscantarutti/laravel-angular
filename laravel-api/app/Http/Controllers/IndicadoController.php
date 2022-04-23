@@ -32,8 +32,6 @@ class IndicadoController extends Controller
 
         $indicado = Indicado::create($request->all());
 
-        $indicado->status_indicacao = 1;
-
         return response()->json($indicado, 201);
     }
 

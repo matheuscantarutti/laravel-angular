@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use App\Enums\StatusIndicacao;
-use Illuminate\Validation\Rules\Enum;
+use BenSampo\Enum\Rules\EnumValue;
 
 class UpdateIndicadoRequest extends FormRequest
 {
@@ -32,7 +32,7 @@ class UpdateIndicadoRequest extends FormRequest
             'cpf' => ['unique:indicados', 'regex:/\d/', 'max:11'],
             'telefone' => ['regex:/\d/', 'max:255'],
             'email' => ['email', 'max:255'],
-            'status_indicacao' => [new Enum(StatusIndicacao::class)]
+            'status_indicacao' => new EnumValue(StatusIndicacao::class)
         ];
     }
 
