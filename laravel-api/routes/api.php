@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndicadoController;
+use App\Http\Controllers\EnumController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,6 @@ Route::get('indicado/{indicado}', [IndicadoController::class, 'show']);
 Route::post('indicado', [IndicadoController::class, 'store']);
 Route::put('indicado/{indicado}', [IndicadoController::class, 'update']);
 Route::delete('indicado/{indicado}', [IndicadoController::class,'destroy']);
+Route::patch('indicado/{indicado}', [IndicadoController::class,'evoluir'])->name('evolucao');
+
+Route::get('enum/{classe}', [EnumController::class, 'show']);
