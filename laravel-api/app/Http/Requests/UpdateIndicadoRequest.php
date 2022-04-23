@@ -7,6 +7,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use App\Enums\StatusIndicacao;
 use BenSampo\Enum\Rules\EnumValue;
+use App\Rules\EvolucaoStatusIndicacao;
 
 class UpdateIndicadoRequest extends FormRequest
 {
@@ -20,6 +21,16 @@ class UpdateIndicadoRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'nome' => strip_tags($this->nome),
+            'cpf' => strip_tags($this->cpf),
+            'telefone' => strip_tags($this->telefone),
+            'email' => strip_tags($this->email)
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,13 +38,25 @@ class UpdateIndicadoRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'nome' => ['max:255'],
-            'cpf' => ['unique:indicados', 'regex:/\d/', 'max:11'],
-            'telefone' => ['regex:/\d/', 'max:255'],
+            'cpf' => ['unique:indicados', 'not_regex:/[^0-9]/', 'max:11', 'cpf'],
+            'telefone' => ['not_regex:/[^0-9]/', 'max:255'],
             'email' => ['email', 'max:255'],
-            'status_indicacao' => new EnumValue(StatusIndicacao::class)
+            'status_indicacao' => 'prohibited'
         ];
+
+        if($this->routeIs('evolucao')){
+
+            $rules = [
+                'status_indicacao' => [
+                    new EnumValue(StatusIndicacao::class),
+                    new EvolucaoStatusIndicacao($this->route('indicado'))
+                ]
+            ];
+        }
+
+        return $rules;
     }
 
     public function failedValidation(Validator $validator)

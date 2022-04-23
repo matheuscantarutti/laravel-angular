@@ -20,6 +20,16 @@ class StoreIndicadoRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'nome' => strip_tags($this->nome),
+            'cpf' => strip_tags($this->cpf),
+            'telefone' => strip_tags($this->telefone),
+            'email' => strip_tags($this->email)
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -29,10 +39,10 @@ class StoreIndicadoRequest extends FormRequest
     {
         return [
             'nome' => ['required', 'max:255'],
-            'cpf' => ['required', 'unique:indicados', 'not_regex:/[^0-9]/', 'max:11'],
-            'telefone' => ['required', 'not_regex:/[^0-9]/'],
-            'email' => ['required', 'email'],
-            'status_indicacao' => ['integer', 'size:1']
+            'cpf' => ['required', 'unique:indicados', 'not_regex:/[^0-9]/', 'max:11', 'cpf'],
+            'telefone' => ['required', 'not_regex:/[^0-9]/', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            'status_indicacao' => ['sometimes', 'integer', 'size:1']
         ];
     }
 
