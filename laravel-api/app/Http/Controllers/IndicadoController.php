@@ -6,6 +6,7 @@ use App\Http\Requests\StoreIndicadoRequest;
 use App\Http\Requests\UpdateIndicadoRequest;
 use App\Models\Indicado;
 use App\Http\Resources\Indicado as IndicadoResource;
+use App\Enums\StatusIndicacao;
 
 class IndicadoController extends Controller
 {
@@ -28,11 +29,9 @@ class IndicadoController extends Controller
      */
     public function store(StoreIndicadoRequest $request)
     {
-        $request->validated();
+        $indicado = Indicado::create($request->validated());
 
-        $indicado = Indicado::create($request->all());
-
-        $indicado->status_indicacao = 1;
+        $indicado->status_indicacao = StatusIndicacao::Iniciada;
 
         return response()->json(new IndicadoResource( $indicado ), 201);
     }
@@ -57,18 +56,14 @@ class IndicadoController extends Controller
      */
     public function update(UpdateIndicadoRequest $request, Indicado $indicado)
     {
-        $request->validated();
-
-        $indicado->update($request->all());
+        $indicado->update($request->validated());
 
         return new IndicadoResource( $indicado );
     }
 
     public function evoluir(UpdateIndicadoRequest $request, Indicado $indicado)
     {
-        $request->validated();
-
-        $indicado->update($request->all());
+        $indicado->update($request->validated());
 
         return response()->json(null, 204);
     }
