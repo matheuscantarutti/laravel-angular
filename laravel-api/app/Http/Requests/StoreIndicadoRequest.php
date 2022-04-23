@@ -29,10 +29,10 @@ class StoreIndicadoRequest extends FormRequest
     {
         return [
             'nome' => ['required', 'max:255'],
-            'cpf' => ['required', 'unique:indicados', 'regex:/\d/', 'max:11'],
-            'telefone' => ['required', 'regex:/\d/'],
+            'cpf' => ['required', 'unique:indicados', 'not_regex:/[^0-9]/', 'max:11'],
+            'telefone' => ['required', 'not_regex:/[^0-9]/'],
             'email' => ['required', 'email'],
-            'status_indicacao' => 'exclude'
+            'status_indicacao' => ['integer', 'size:1']
         ];
     }
 
@@ -43,11 +43,4 @@ class StoreIndicadoRequest extends FormRequest
        ], 400));
     }
 
-    public function messages()
-    {
-        return [
-            'email.required' => 'Email is required',
-            'email.email' => 'Email is not correct'
-        ];
-    }
 }
