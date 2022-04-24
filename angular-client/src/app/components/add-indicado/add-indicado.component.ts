@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { IndicadoService } from 'src/app/indicado.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,13 +10,13 @@ import { Router } from '@angular/router';
 })
 export class AddIndicadoComponent implements OnInit {
   IndicadoForm: FormGroup = new FormGroup({
-    nome: new FormControl(),
-    cpf: new FormControl(),
-    telefone: new FormControl(),
-    email: new FormControl(),
+    nome: new FormControl('', Validators.required),
+    cpf: new FormControl('', Validators.required),
+    telefone: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.required),
     status_indicacao: new FormControl()
   });
-  IndicadoArr: any = [];
+
   ngOnInit() {
     this.addIndicado();
   }
@@ -37,7 +37,7 @@ export class AddIndicadoComponent implements OnInit {
   }
   submitForm() {
     this.IndicadoService.CreateIndicado(this.IndicadoForm.value).subscribe((res) => {
-      console.log('Indicação criada!');
+
       this.ngZone.run(() => this.router.navigateByUrl('/indicados-list'));
     });
   }
