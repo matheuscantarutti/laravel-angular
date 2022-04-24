@@ -1,0 +1,39 @@
+<div class="container wrapper">
+  <h3>Indicações</h3>
+  <button
+    type="button"
+    class="btn btn-success btn-sm move-right"
+    [routerLink]="['/add-indicado/']"
+  >
+    Nova Indicação
+  </button>
+  <div class="parent">
+    <div *ngFor="let indicados of IndicadosList">
+      <div class="card box" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title">{{ indicados.nome }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            {{ indicados.status_indicacao }}
+          </h6>
+          <p class="card-text">{{ indicados.cpf }}</p>
+          <p class="card-text">{{indicados.telefone}</p>
+          <p class="card-text">{{ indicados.email }}</p>
+          <button
+            type="button"
+            class="btn btn-warning m-1 btn-sm move-right"
+            [routerLink]="['/update-indicado/', indicados.id]"
+          >
+            Edit
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            (click)="deleteIndicado(indicados)"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
