@@ -14,19 +14,19 @@ export class IndicadosListComponent implements OnInit {
   }
   constructor(
     public indicadoService: IndicadoService
-  ){ }
+  ) { }
 
-   loadIndicados() {
+  loadIndicados() {
     return this.indicadoService.GetIndicados().subscribe((resp: any) => {
       this.IndicadosList = resp.data;
     })
   }
-    // Delete indicado
-    deleteIndicado(data:any){
-      var index:any = index = this.IndicadosList.map((x: any) => {return x}).indexOf(data.indicado_name);
-       return this.indicadoService.DeleteIndicado(data.id).subscribe(res => {
-        this.IndicadosList.splice(index, 1)
-        this.loadIndicados();
-       })
-    }
+
+  deleteIndicado(data: any) {
+    var index: any = index = this.IndicadosList.map((x: any) => { return x }).indexOf(data.indicado_name);
+    return this.indicadoService.DeleteIndicado(data.id).subscribe(res => {
+      this.IndicadosList.splice(index, 1)
+      this.loadIndicados();
+    })
+  }
 }

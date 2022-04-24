@@ -1,12 +1,17 @@
 <div class="container wrapper">
-  <h3>Indicações</h3>
-  <button
-    type="button"
-    class="btn btn-success btn-sm move-right"
-    [routerLink]="['/add-indicado/']"
-  >
-    Nova Indicação
-  </button>
+  <div class="d-flex m-3 cabecalho">
+    <h2 class="m-1">Indicações</h2>
+    <button
+      type="button"
+      class="btn btn-success btn-sm move-right m-1"
+      [routerLink]="['/add-indicado/']"
+    >
+      Nova Indicação
+    </button>
+  </div>
+  <div class="center m-3">
+    <input class="ipt_pesquisa" type="text" placeholder="Pesquisa">
+  </div>
   <div class="parent">
     <div *ngFor="let indicados of IndicadosList">
       <div class="card box" style="width: 18rem">
@@ -16,7 +21,7 @@
             {{ indicados.status_indicacao }}
           </h6>
           <p class="card-text">{{ indicados.cpf }}</p>
-          <p class="card-text">{{indicados.telefone}</p>
+          <p class="card-text">{{ indicados.telefone }}</p>
           <p class="card-text">{{ indicados.email }}</p>
           <button
             type="button"
