@@ -8,17 +8,19 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./update-indicado.component.css']
 })
 export class UpdateIndicadoComponent implements OnInit {
+  indicado: any;
   updateIndicadoForm: FormGroup = new FormGroup({
-    nome: new FormControl(),
+    nome: new FormControl(''),
     cpf: new FormControl(),
     telefone: new FormControl(),
     email: new FormControl(),
     status_indicacao: new FormControl()
   });
   id: any = this.actRoute.snapshot.paramMap.get('id');
+  Erros: any = [];
 
   ngOnInit() {
-    this.updateForm()
+    //this.updateForm()
   }
   constructor(
     private actRoute: ActivatedRoute,
@@ -29,28 +31,23 @@ export class UpdateIndicadoComponent implements OnInit {
   ) {
     this.indicadoService.GetIndicado(this.id).subscribe((data) => {
       this.updateIndicadoForm = this.fb.group({
-        nome: [data.nome],
-        cpf: [data.cpf],
-        telefone: [data.telefone],
-        email: [data.email],
-        status_indicacao: [data.status_indicacao],
+        ...data
       })
-
     })
+
   }
 
-  updateForm(){
-    this.updateIndicadoForm = this.fb.group({
-      nome: [''],
-      cpf: [''],
-      telefone: [''],
-      email: [''],
-      status_indicacao: [''],
-    })
-  }
-  submitForm(){
-    this.indicadoService.UpdateIndicado(this.id, this.updateIndicadoForm.value).subscribe(res =>{
+  submitForm() {
+    this.indicadoService.UpdateIndicado(this.id, this.updateIndicadoForm.value)
+    .subscribe(res => {
       this.ngZone.run(() => this.router.navigateByUrl('/indicados-list'))
-    })
+    }, (error) => {
+      for (const key in error.error.erros) {
+        if (Object.prototype.hasOwnProperty.call(error.error.erros, key)) {
+          let element = error.error.erros[key];
+          this.Erros.push(element);
+        }
+      }
+    });
   }
 }

@@ -1,7 +1,16 @@
 <div class="container wrapper wrapper2">
   <div class="row">
     <div class="col-md-12">
-      <h3>Adicionar Indicação</h3>
+      <h3>Atualizar Indicação</h3>
+      <div *ngFor="let erro of Erros">
+        <div class="bg-danger">
+          <div class="d-flex">
+            <div class="toast-body">
+              {{ erro }}
+            </div>
+          </div>
+        </div>
+      </div>
       <form [formGroup]="updateIndicadoForm" (ngSubmit)="submitForm()">
         <div class="form-group">
           <label>Nome</label>
