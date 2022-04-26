@@ -4,17 +4,17 @@ Web app com front-end Angular e back-end Laravel+PostgreSQL.
 
 :Conceitos
 
-front => 'mobile first'
-back => 'RESTfull'
+front => 'mobile first'<br>
+back => 'RESTfull'<br>
 
 ## Caixa de Ferramentas
 
-PHP 8.1
-PostgreSQL 12.0
-Angular 13
-NodeJs 16.10
-Composer
-npm
+PHP 8.1<br>
+PostgreSQL 12.0<br>
+Angular 13<br>
+NodeJs 16.10<br>
+Composer<br>
+npm<br>
 
 ## Configuração de Ambiente
 
