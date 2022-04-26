@@ -19,6 +19,6 @@ class Indicado extends Model
     ];
 
     protected $attributes = [
-        'status_indicacao' => StatusIndicacao::Iniciada
+        'status_indicacao' => StatusIndicacao::Iniciada['num']
     ];
 }

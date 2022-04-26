@@ -19,11 +19,11 @@ class IndicadoTest extends TestCase
             'email' => 'mail@email',
         ];
 
-        $response = $this->postJson('/api/indicado', json_encode($payload));
+        $response = $this->postJson('/api/indicado', $payload);
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('indicados', $payload);
-        $this->assertEquals(StatusIndicacao::Iniciada, $response->getData()->status_indicacao);
+        $this->assertEquals(StatusIndicacao::Iniciada['num'], $response->getData()->status_indicacao);
     }
 
     public function testUpdateIndicado()

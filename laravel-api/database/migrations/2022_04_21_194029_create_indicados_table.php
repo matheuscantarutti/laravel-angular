@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('cpf', 11);
             $table->string('telefone');
             $table->string('email');
-            $table->tinyInteger('status_indicacao')->unsigned()->default(StatusIndicacao::Iniciada);
+            $table->tinyInteger('status_indicacao')->unsigned()->default(StatusIndicacao::Iniciada['num']);
 
             $table->unique('cpf');
         });
