@@ -17,13 +17,13 @@ class IndicadosTableSeeder extends Seeder
     {
         Indicado::truncate();
 
-        $faker = \Faker\Factory::create();
+        $faker = \Faker\Factory::create('pt_BR');
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 27 ; $i++) {
 
             Indicado::create([
                 'nome' => $faker->name,
-                'cpf' => $faker->regexify('/\d{11}/'),
+                'cpf' => $faker->cpf(false),
                 'telefone'=> $faker->phoneNumber,
                 'email' => $faker->email
             ]);
