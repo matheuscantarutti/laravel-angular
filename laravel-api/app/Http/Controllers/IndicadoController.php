@@ -16,7 +16,7 @@ class IndicadoController extends Controller
      */
     public function index()
     {
-        $indicados = Indicado::orderByRaw('created_at DESC, updated_at DESC')->all();
+        $indicados = Indicado::orderByRaw('created_at DESC, updated_at DESC')->paginate(10);
         return IndicadoResource::collection($indicados);
     }
 
