@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "barryvdh/laravel-cors": "^3.0",
         "bensampo/laravel-enum": "^5.3",
         "geekcom/validator-docs": "^3.7",
         "guzzlehttp/guzzle": "^7.2",
@@ -14,7 +15,7 @@
         "laravel/tinker": "^2.7"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.9.1",
+        "fakerphp/faker": "^1.19",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
@@ -46,6 +47,9 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "test" : [
+            "vendor/bin/phpunit"
         ]
     },
     "extra": {
