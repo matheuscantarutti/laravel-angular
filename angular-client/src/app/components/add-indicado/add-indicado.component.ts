@@ -17,6 +17,8 @@ export class AddIndicadoComponent implements OnInit {
     status_indicacao: new FormControl()
   });
 
+  Erros: any = [];
+
   ngOnInit() {
     this.addIndicado();
   }
@@ -36,9 +38,16 @@ export class AddIndicadoComponent implements OnInit {
     });
   }
   submitForm() {
-    this.IndicadoService.CreateIndicado(this.IndicadoForm.value).subscribe((res) => {
-
+    this.IndicadoService.CreateIndicado(this.IndicadoForm.value)
+    .subscribe((res) => {
       this.ngZone.run(() => this.router.navigateByUrl('/indicados-list'));
+    }, (error) => {
+      for (const key in error.error.erros) {
+        if (Object.prototype.hasOwnProperty.call(error.error.erros, key)) {
+          const element = error.error.erros[key];
+          this.Erros.push(element);
+        }
+      }
     });
   }
 }
