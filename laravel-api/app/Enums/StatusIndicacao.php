@@ -11,7 +11,8 @@ use BenSampo\Enum\Enum;
  */
 final class StatusIndicacao extends Enum
 {
-    const Iniciada = 1;
-    const Em_processo = 2;
-    const Finalizada = 3;
+    const Iniciada = ['num' => 1, 'desc' => 'Iniciada'];
+    const Em_processo = ['num' => 2, 'desc' => 'Em processo'];
+    const Finalizada = ['num' => 3, 'desc' => 'Finalizada'];
+
 }
