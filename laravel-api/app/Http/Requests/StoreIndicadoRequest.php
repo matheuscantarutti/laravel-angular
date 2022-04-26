@@ -22,11 +22,15 @@ class StoreIndicadoRequest extends FormRequest
 
     protected function prepareForValidation()
     {
+        $merge = array();
+
+        foreach ($this->request as $key => $value) {
+            strip_tags($this->$key);
+            $merge[$key] = $value;
+        }
+
         $this->merge([
-            'nome' => strip_tags($this->nome),
-            'cpf' => strip_tags($this->cpf),
-            'telefone' => strip_tags($this->telefone),
-            'email' => strip_tags($this->email)
+            ...$merge
         ]);
     }
 

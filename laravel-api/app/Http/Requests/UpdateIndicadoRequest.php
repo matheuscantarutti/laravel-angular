@@ -23,11 +23,19 @@ class UpdateIndicadoRequest extends FormRequest
 
     protected function prepareForValidation()
     {
+        $merge = array();
+
+        foreach ($this->request as $key => $value) {
+
+            if(!empty($value)) {
+                strip_tags($this->$key);
+                $merge[$key] = $value;
+            }
+
+        }
+
         $this->merge([
-            'nome' => strip_tags($this->nome),
-            'cpf' => strip_tags($this->cpf),
-            'telefone' => strip_tags($this->telefone),
-            'email' => strip_tags($this->email)
+            ...$merge
         ]);
     }
 
@@ -40,18 +48,21 @@ class UpdateIndicadoRequest extends FormRequest
     {
         $rules = [
             'nome' => ['max:255'],
-            'cpf' => ['unique:indicados', 'not_regex:/[^0-9]/', 'max:11', 'cpf'],
-            'telefone' => ['not_regex:/[^0-9]/', 'max:255'],
+            'telefone' => ['regex:/[0-9()"-]+/', 'max:255'],
             'email' => ['email', 'max:255'],
-            'status_indicacao' => 'prohibited'
+            'status_indicacao' => 'exclude'
         ];
+
+        if($this->request->get('cpf') !== $this->indicado->cpf){
+            $rules['cpf'] = ['unique:indicados', 'not_regex:/[^0-9]/', 'max:11', 'cpf'];
+        }
 
         if($this->routeIs('evolucao')){
 
             $rules = [
                 'status_indicacao' => [
-                    new EnumValue(StatusIndicacao::class),
-                    new EvolucaoStatusIndicacao($this->route('indicado'))
+                    'regex:/[1-3]/',
+                    new EvolucaoStatusIndicacao($this->indicado)
                 ]
             ];
         }
@@ -66,11 +77,4 @@ class UpdateIndicadoRequest extends FormRequest
        ], 400));
     }
 
-    public function messages()
-    {
-        return [
-            'email.required' => 'Email is required',
-            'email.email' => 'Email is not correct'
-        ];
-    }
 }
