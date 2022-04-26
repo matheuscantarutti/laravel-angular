@@ -1,6 +1,20 @@
 # laravel-angular
 
-Web app com front-end Angular e back-end Laravel+PostgreSQL
+Web app com front-end Angular e back-end Laravel+PostgreSQL.
+
+:Conceitos
+
+front => 'mobile first'
+back => 'RESTfull'
+
+## Caixa de Ferramentas
+
+PHP 8.1
+PostgreSQL 12.0
+Angular 13
+NodeJs 16.10
+Composer
+npm
 
 ## Configuração de Ambiente
 
@@ -35,7 +49,26 @@ A migração dos dados é feita assim:
 
 ```
 php artisan migrate
-
+php artisan db:seed
 ```
 
+Laravel serve suas aplicaçoes na porta 8000.
+
 ### Angular
+
+Faça download do npm e do node, de preferência nas versões 6.1 e 16.10 respectivamente.
+Em seguida, realize a instalação do Angular
+
+```
+npm install -g @angular/cli
+```
+
+Ao finalizar a instalação, acesse o diretório do Angular e realize o comando:
+
+```
+ng serve --open
+```
+Por padrão, o Angular executa na porta 4200.
+
+### Collection do Postman
+https://www.getpostman.com/collections/86bc9311ab033f2e3943
